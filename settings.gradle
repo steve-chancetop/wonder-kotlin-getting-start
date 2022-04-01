@@ -1,0 +1,21 @@
+rootProject.name = 'wonder-kotlin-getting-start'
+include(":book:book-manager-service",
+        ":book:book-manager-service-interface",
+        ":book:book-manager-service-db-migration",
+        ":book:book-search-service",
+        ":book:book-search-service-interface"
+)
+
+def isCiServer = System.getenv().containsKey("CI") && System.getenv("CI") == "true"
+def cacheUrl = isCiServer ? 'http://build-cache-node:5071/cache/' : 'https://gradle.foodtruck-qa.com/cache/'
+
+buildCache {
+    local {
+        enabled = !isCiServer
+    }
+    remote(HttpBuildCache) {
+        url = cacheUrl
+        push = isCiServer
+        allowInsecureProtocol = isCiServer
+    }
+}

@@ -1,0 +1,34 @@
+import groovy.json.JsonSlurper
+
+def publishConf = new JsonSlurper().parseText(rootProject.file("publish.json").text)
+
+publishConf.modules.each { module ->
+    project(module.name) {
+        apply plugin: 'java'
+        apply plugin: 'maven-publish'
+
+        dependencies {
+            compileOnly "com.wonder:core-ng-api:$core_ng_version"
+        }
+
+        publishing {
+            publications {
+                apiInterface(MavenPublication) {
+                    groupId 'com.wonder'
+                    artifactId module.artifactId
+                    version module.version
+                    from components.java
+                }
+            }
+            repositories {
+                maven {
+                    url 'https://pkgs.dev.azure.com/foodtruckinc/Wonder/_packaging/maven-local/maven/v1'
+                    credentials {
+                        username = 'foodtruckinc'
+                        password = System.getenv('SYSTEM_ACCESSTOKEN')
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "modules": [
+    {
+      "name": "book:book-manager-service-interface",
+      "artifactId": "book-manager-service-interface",
+      "version": "0.0.1-SNAPSHOT.0"
+    },
+    {
+      "name": "book:book-search-service-interface",
+      "artifactId": "book-search-service-interface",
+      "version": "0.0.1-SNAPSHOT.0"
+    }
+  ]
+}

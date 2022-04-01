@@ -1,0 +1,17 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'java'
+}
+
+dependencies {
+    implementation project(':book:book-manager-service-interface')
+
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_version"
+    testImplementation "net.javacrumbs.json-unit:json-unit:$jsonunit_version"
+}
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src/main']
+    test.kotlin.srcDirs = test.java.srcDirs = ['src/test']
+}
